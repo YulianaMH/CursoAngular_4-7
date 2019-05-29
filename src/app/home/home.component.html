@@ -1,0 +1,25 @@
+<h2> {{ titulo }} </h2>
+
+<br/>
+<input type="text" [(ngModel)]="prenda_a_guardar">
+<button (click)="guardarPrenda()">Añadir prenda</button>
+<p *ngIf="prenda_a_guardar">La prenda a guardar: <strong>{{prenda_a_guardar}}</strong></p>
+
+<h3>Listado de ropa</h3>
+<ul>
+    <li *ngFor="let prenda of listado_ropa; let i = index">
+        {{prenda}}
+        <button (click)="eliminarPrenda(i)">Eliminar Prenda</button>
+    </li>
+</ul>
+
+<br/>
+<!--Pipes de Fecha, mayusculas y minusculas-->
+{{fecha | date:'fullDate' | uppercase | lowercase}} <!-- UPPERCASE MAYUSCULAS. lowercase minusculas-->
+<br/>
+{{fecha | date:'dd/MM/yyyy'}}
+<br/>
+{{nombre | uppercase}}
+<br/>
+<!--Pipe personalizada-->
+{{ 5 | conversor: 7 }}

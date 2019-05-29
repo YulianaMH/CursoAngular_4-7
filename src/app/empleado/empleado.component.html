@@ -1,0 +1,88 @@
+<h3 style='color:blue'>  
+    {{ titulo }}
+</h3>
+<strong>Empleado estrella:</strong>
+<br/>
+<br/>
+
+<div  *ngIf="trabajador_externo === true"> <!-- Directiva ngIf-->
+    <button (click)="cambiarExterno(false)">Mostrar Empleado</button> <!-- Evento Click-->
+    <ul>
+        <li>{{trabajadores[0].nombre}}</li>
+        <li>{{trabajadores[0].cargo}}</li>
+        <li>{{trabajadores[0].edad}}</li>
+        <li *ngIf="trabajadores[0].contrato === true">Contratado</li>
+        <li *ngIf="trabajadores[0].contrato === false">NO Contratado</li>
+    </ul>
+</div>
+<div *ngIf="trabajador_externo === false">
+    <button (click)="cambiarExterno(true)">Mostrar Trabajador</button>
+    <ul>
+        <li>{{empleado.nombre}}</li>
+        <li>{{empleado.cargo}}</li>
+        <li>{{empleado.edad}}</li>
+        <li *ngIf="empleado.contrato === true">Contratado</li>
+        <li *ngIf="empleado.contrato === false">NO Contratado</li>
+    </ul>
+</div>
+
+<hr>
+
+ <h3>Listado de empleados</h3>
+ <ul>
+     <li *ngFor="let empleado of trabajadores; let i = index"><!--Directiva ngFor-->
+         <strong>Empleado {{i+1}}:</strong>
+         <ul>
+            <li>{{empleado.nombre}}</li>
+            <li>{{empleado.cargo}}</li>
+            <li>{{empleado.edad}}</li>
+            <li *ngIf="empleado.contrato === true">Contratado</li>
+            <li *ngIf="empleado.contrato === false">NO Contratado</li>
+         </ul>
+     </li>
+ </ul>
+
+ <hr>
+ <h3>Colores switch (directiva ngSwitch y ngStyle)</h3>
+ <ul [ngSwitch]="color">    <!--Directiva de binding, con corchetes-->
+     <li *ngSwitchCase="'red'" [ngStyle]="{
+         'background':color,
+         'color':'white',
+         'padding':'20px'
+     }">Es color ROJO  
+     </li>
+     <li *ngSwitchCase="'pink'" [ngStyle]="{
+        'background':color,
+        'color':'black',
+        'padding':'20px'
+    }">Es color ROSA  
+    </li>
+ </ul>
+
+ 
+ <hr/>
+ <h3>Selector de colores</h3>
+ <button (click)="logColorSeleccionado()">MOSTRAR LOG</button>
+ <input type="text" [(ngModel)]="color_seleccionado"/> <!--Es directiva de two way porque tiene corchete y parentesis. Con ngModel indico que vy a modificar una variable del modelo-->
+ <pre 
+    [style.border]="color_seleccionado === 'red' ? '5px solid black' : '1px solid green'"
+    [ngClass]="{
+        fondoAzul: color_seleccionado === 'blue',
+        fondoVerde: color_seleccionado === 'green'
+    }"
+    > 
+     <strong>Color elegido: </strong>
+     {{color_seleccionado}}
+ </pre>
+    <!-- Puedo usar de esta manera la directiva ngClass en lugar de la de arriba, entre corchetes porgo las clases que quiero que tome, sin depender del color_seeccionado-->
+    <!--[ngClass]="['fondoAzul','letraGrande']" -->
+    <!-- [class.fondoAzul]="color_seleccionado === 'blue'"   EN LUGAR DE ESTA, PUSE CON DIRECTIVA ngClass-->  
+
+ <div [ngStyle]="{
+    'background':color_seleccionado,
+    'width':'100px',
+    'height':'100px',
+    'float':'right',
+    'margin-right':'69%'
+}"></div>
+
